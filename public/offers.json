@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "title": "РЖД Бонус",
+    "description": "Студентам предоставляется скидка 25% на проезд внутри страны",
+    "category": ["transport"],
+    "expires": "ongoing",
+    "link": "https://rzd-bonus.ru/page/studencheskiy-proekt-rzhd-bonus/"
+  },
+  {
+    "id": 2,
+    "title": "Пушкинская карта",
+    "description": "Посещайте театры и кинотеатры, музеи и филармонии за счёт государства",
+    "category": ["theaters", "museums", "cinema"],
+    "expires": "ongoing",
+    "link": "https://culture.gosuslugi.ru/"
+  },
+  {
+    "id": 3,
+    "title": "Русский музей",
+    "description": "Бесплатное посещение для детей и студентов 18 числа каждого месяца",
+    "category": ["museums"],
+    "expires": "ongoing",
+    "link": "https://rusmuseum.ru/about/tickets/"
+  },
+  {
+    "id": 4,
+    "title": "Льготная БСК карта",
+    "description": "Льготные проездные билеты для городского наземного транспорта и метро",
+    "category": ["transport"],
+    "expires": "ongoing",
+    "link": "https://zakaz.ltkarta.ru/faq.html"
+  },
+  {
+    "id": 5,
+    "title": "\"Студенческий день\" в Михайловском театре",
+    "description": "В день спектакля можно купить билет со скидкой в 50%",
+    "category": ["theaters"],
+    "expires": "ongoing",
+    "link": "https://mikhailovsky.ru/buy_now/special_offers/student_day/"
+  },
+  {
+    "id": 6,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 7,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 8,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 9,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 10,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 11,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 12,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.09.2025",
+    "link": "https://umnik-books.com"
+  },
+  {
+    "id": 13,
+    "title": "Скидка в магазине 'Буквоед'",
+    "description": "Скидка 15% на все книги и канцелярские товары для студентов",
+    "category": ["promos"],
+    "promocode": "ALLBOOKS",
+    "expires": "30.0920.25",
+    "link": "https://umnik-books.com"
+  }
+]
