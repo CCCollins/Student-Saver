@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://studsaver.vercel.app
+
+# Sitemaps
+Sitemap: https://studsaver.vercel.app/sitemap.xml

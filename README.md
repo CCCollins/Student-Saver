@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎓 Student Saver – скидки и промокоды для студентов!
 
-## Getting Started
+## 🔥 Описание проекта  
+**Student Saver** – это веб-приложение, которое собирает **лучшие скидки, акции и промокоды** для студентов в одном месте.  
+Здесь вы найдете выгодные предложения на **образование, транспорт, досуг, покупки и многое другое**!  
 
-First, run the development server:
+## 🚀 Функционал  
+- 🔍 **Поиск** по скидкам и промокодам  
+- ❤️ **Добавление в избранное** (только для зарегистрированных пользователей)  
+- 🏷 **Разделение предложений на категории**  
+- 📅 **Отображение срока действия** акций  
+- 🔄 **Админ-панель** для управления контентом  
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🛠️ Технологии  
+- **Next.js 15** (App Router, Server Actions)  
+- **Supabase** (авторизация, база данных)  
+- **Tailwind CSS** (UI и адаптивный дизайн)  
+- **Vercel Analytics & Speed Insights**  
+
+## 📦 Установка и запуск  
+
+### 1️⃣ Клонирование репозитория  
+```sh
+git clone https://github.com/CCCollins/Student-Saver.git
+cd Student-Saver
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2️⃣ Установка зависимостей  
+```sh
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3️⃣ Настройка Supabase  
+Создайте файл **.env.local** и добавьте ваши ключи API:  
+```
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4️⃣ Запуск локального сервера  
+```sh
+npm run dev
+```
+Приложение будет доступно по адресу **http://localhost:3000**.
 
-## Learn More
+## 📜 Лицензия  
+Проект распространяется по лицензии **MIT**.  
+Подробнее см. в [LICENSE](./LICENSE).  
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Авторы  
+Проект **Student Saver** разработан студентами СПбПУ Петра Великого для всех студентов, которые хотят экономить! 🎓  
+Сайт: [studsaver.vercel.app](https://studsaver.vercel.app)  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+_⭐ Если вам понравился проект, поставьте звезду на GitHub!_
