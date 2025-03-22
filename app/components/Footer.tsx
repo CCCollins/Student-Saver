@@ -22,17 +22,19 @@ const Footer = () => {
   const [randomQuote, setRandomQuote] = useState<{ text: string; author: string } | null>(null);
 
   useEffect(() => {
-    const fetchOffersCount = async () => {
-      const { count, error } = await supabase
-        .from("offers")
-        .select("*", { count: "exact", head: true });
-
-      if (!error) {
-        setOffersCount(count);
+    const fetchCounts = async () => {
+      const { data, error } = await supabase.from("offers").select("promocode");
+      if (error) {
+        console.error("Ошибка при получении данных:", error);
+        return;
       }
+
+      const offersCount = data.reduce((acc, offer) => acc + (offer.promocode ? offer.promocode.length : 1), 0);
+
+      setOffersCount(offersCount);
     };
 
-    fetchOffersCount();
+    fetchCounts();
     setRandomQuote(quotes[Math.floor(Math.random() * quotes.length)]); // Выбираем случайную цитату
   }, []);
 
@@ -41,7 +43,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row justify-between items-center gap-6">
         {/* Левая часть (название и статистика) */}
         <div className="text-left">
-          <h3 className="text-lg font-bold tracking-wide">Student Saver © {new Date().getFullYear()}</h3>
+          <h3 className="text-lg font-bold tracking-wide">Student Saver © 2025</h3>
           <p className="text-xs justify-center opacity-70 mt-1">
             Доступно <span className="font-semibold">{offersCount}</span> предложений
           </p>

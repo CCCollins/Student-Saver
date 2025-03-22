@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OfferCard from "./OfferCard";
 import { FaCaretRight, FaCaretLeft } from "react-icons/fa";
 
@@ -20,7 +20,22 @@ interface Offer {
 export default function OfferList({ offers }: { offers: Offer[] }) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const offersPerPage = 6;
+  const [offersPerPage, setOffersPerPage] = useState(6);
+
+  useEffect(() => {
+    const updateOffersPerPage = () => {
+      if (window.innerWidth <= 768) {
+        setOffersPerPage(3);
+      } else {
+        setOffersPerPage(6);
+      }
+    };
+
+    updateOffersPerPage();
+    window.addEventListener("resize", updateOffersPerPage);
+
+    return () => window.removeEventListener("resize", updateOffersPerPage);
+  }, []);
 
   const totalPages = Math.ceil(offers.length / offersPerPage);
   const indexOfLastOffer = currentPage * offersPerPage;
