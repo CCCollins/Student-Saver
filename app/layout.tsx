@@ -59,8 +59,8 @@ export const metadata: Metadata = {
     creator: "@studentsaver",
   },
   icons: {
-    icon: "/favicon.ico",
-    apple: "/favicon.png",
+    icon: "https://studsaver.vercel.app/favicon.ico",
+    apple: "https://studsaver.vercel.app/favicon.png",
   },
 };
 
@@ -73,9 +73,9 @@ export default function RootLayout({
     <html lang="ru">
       <head>
         <meta charSet="UTF-8" />
-        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="shortcut icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="https://studsaver.vercel.app/favicon.ico" />
+        <link rel="shortcut icon" href="https://studsaver.vercel.app/favicon.ico" />
+        <link rel="apple-touch-icon" href="https://studsaver.vercel.app/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="yandex-verification" content="4d1a4e3a74cfd7fc" />
 
@@ -102,7 +102,7 @@ export default function RootLayout({
           property="og:description"
           content="Находи лучшие акции и промокоды для студентов в одном месте!"
         />
-        <meta property="og:image" content="/favicon.png" />
+        <meta property="og:image" content="https://studsaver.vercel.app/favicon.png" />
 
         <meta name="author" content="Student Saver" />
         <meta name="robots" content="index, follow" />
