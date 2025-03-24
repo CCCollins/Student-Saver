@@ -9,6 +9,7 @@ import { ChevronUp, Menu, X } from "lucide-react";
 import {
   FaTag, FaUniversity, FaTheaterMasks, FaFilm, FaBus, FaShoppingCart, FaBook, FaBriefcase, FaEllipsisH,
 } from "react-icons/fa";
+import Cookies from "js-cookie";
 
 // ✅ Категории + Иконки
 const CATEGORY_ICONS: Record<string, JSX.Element> = {
@@ -54,8 +55,15 @@ export default function Home() {
 
   useEffect(() => {
     fetchOffers();
-    fetchFavorites();
+    const storedFavorites = Cookies.get("favorites");
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites));
+    }
   }, []);
+
+  useEffect(() => {
+    Cookies.set("favorites", JSON.stringify(favorites), { expires: 365 });
+  }, [favorites]);
 
   const fetchOffers = async () => {
     setLoading(true);
@@ -71,25 +79,6 @@ export default function Home() {
     }
 
     setLoading(false);
-  };
-
-  const fetchFavorites = async () => {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const userId = sessionData?.session?.user?.id;
-
-    if (userId) {
-      const { data, error } = await supabase
-        .from("users")
-        .select("favorites")
-        .eq("user_id", userId)
-        .single();
-
-      if (error) {
-        console.error("Ошибка загрузки избранного из Supabase:", error.message);
-      } else {
-        setFavorites(data?.favorites || []);
-      }
-    }
   };
 
   const processOffers = (offers: Offer[]) => {
@@ -273,7 +262,7 @@ export default function Home() {
               </h2>
 
               <div className="mt-4 p-5 bg-white rounded-lg shadow-md border border-gray-200">
-                <OfferList offers={groupedPromos[category]} />
+                <OfferList offers={groupedPromos[category]} favorites={favorites} setFavorites={setFavorites} />
               </div>
             </div>
           ))
@@ -288,7 +277,7 @@ export default function Home() {
                 </h2>
 
                 <div className="mt-4 p-5 bg-white rounded-lg shadow-md border border-gray-200">
-                  <OfferList offers={groupedSales[category]} />
+                  <OfferList offers={groupedSales[category]} favorites={favorites} setFavorites={setFavorites} />
                 </div>
               </div>
             ))

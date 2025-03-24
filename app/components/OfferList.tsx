@@ -17,7 +17,13 @@ interface Offer {
   link: string;
 }
 
-export default function OfferList({ offers }: { offers: Offer[] }) {
+interface OfferListProps {
+  offers: Offer[];
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
+}
+
+export default function OfferList({ offers, favorites, setFavorites }: OfferListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [offersPerPage, setOffersPerPage] = useState(6);
@@ -104,9 +110,10 @@ export default function OfferList({ offers }: { offers: Offer[] }) {
           <OfferCard
             key={offer.id}
             {...offer}
-            promocode={offer.promocode || []}
             isExpanded={expandedId === offer.id}
             setExpandedId={setExpandedId}
+            favorites={favorites}
+            setFavorites={setFavorites}
           />
         ))}
       </div>

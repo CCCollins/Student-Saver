@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaCheckSquare, FaCopy, FaRegHeart, FaHeart, FaSearch } from "react-icons/fa";
 import { WiTime7 } from "react-icons/wi";
 import { LuTags } from "react-icons/lu";
-import { supabase } from "@/utils/supabase"; // Подключаем Supabase для проверки сессии
-import { useRouter } from "next/navigation"; // Подключаем useRouter для перенаправления
+import Cookies from "js-cookie";
 
 interface Promocode {
   code: string;
@@ -20,6 +19,8 @@ interface OfferCardProps {
   link: string;
   isExpanded: boolean;
   setExpandedId: (id: string | null) => void;
+  favorites: string[];
+  setFavorites: (favorites: string[]) => void;
 }
 
 export default function OfferCard({
@@ -31,40 +32,12 @@ export default function OfferCard({
   link,
   isExpanded,
   setExpandedId,
+  favorites,
+  setFavorites,
 }: OfferCardProps) {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
   const [isHourglassClicked, setIsHourglassClicked] = useState(false);
-  const [favorites, setFavorites] = useState<string[]>([]);
-  const [userId, setUserId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const router = useRouter();
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (data?.session?.user) {
-        setUserId(data.session.user.id);
-      }
-    };
-    checkUser();
-  }, []);
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (userId) {
-        const { data: userData } = await supabase
-          .from("users")
-          .select("favorites")
-          .eq("user_id", userId)
-          .single();
-
-        if (userData?.favorites) {
-          setFavorites(userData.favorites);
-        }
-      }
-    };
-    fetchUser();
-  }, [userId]);
 
   const handleCopy = (code: string) => {
     navigator.clipboard.writeText(code);
@@ -77,34 +50,13 @@ export default function OfferCard({
     setExpandedId(isExpanded ? null : id); // ✅ Если карточка открыта — закрываем, иначе открываем
   };
 
-  const handleLike = async () => {
-    if (!userId) {
-      router.push("/login"); // Перенаправляем на страницу логина
-      return;
-    }
-
-    const { data: userData } = await supabase
-      .from("users")
-      .select("favorites")
-      .eq("user_id", userId)
-      .single();
-
-    const currentFavorites = userData?.favorites || [];
-    const updatedFavorites = currentFavorites.includes(id)
-      ? currentFavorites.filter((fav: string) => fav !== id) // Удаляем из избранного
-      : [...currentFavorites, id]; // Добавляем в избранное
+  const handleLike = () => {
+    const updatedFavorites = favorites.includes(id)
+      ? favorites.filter((favId) => favId !== id)
+      : [...favorites, id];
 
     setFavorites(updatedFavorites);
-
-    // Обновляем массив лайков в Supabase
-    const { error: updateError } = await supabase
-      .from("users")
-      .update({ favorites: updatedFavorites })
-      .eq("user_id", userId);
-
-    if (updateError) {
-      console.error("Ошибка при обновлении данных пользователя:", updateError);
-    }
+    Cookies.set("favorites", JSON.stringify(updatedFavorites), { expires: 365 }); // Храним лайки 1 год
   };
 
   const filteredPromocodes = promocode.filter((promo) =>
