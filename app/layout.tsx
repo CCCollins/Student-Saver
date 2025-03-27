@@ -77,6 +77,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="https://studsaver.vercel.app/favicon.ico" />
         <link rel="apple-touch-icon" href="https://studsaver.vercel.app/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="google-site-verification" content="CrK9H1Ma_dMxFmA3uhTYs9F9flePHdvsTm5FbhmDjE4" />
         <meta name="yandex-verification" content="4d1a4e3a74cfd7fc" />
 
         <title>
