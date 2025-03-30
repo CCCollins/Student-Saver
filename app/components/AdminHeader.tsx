@@ -93,9 +93,6 @@ const AdminHeader = () => {
             setIsReplacing(true);
             const { error: deleteError } = await supabase.rpc("truncate_offers");
             if (deleteError) throw deleteError;
-  
-            const { error: clearFavoritesError } = await supabase.rpc("clear_favorites");
-            if (clearFavoritesError) throw clearFavoritesError;
           }
   
           // 🔄 Получаем существующие записи из Supabase

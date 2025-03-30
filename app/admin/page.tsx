@@ -15,6 +15,7 @@ export default function Admin() {
   const [offers, setOffers] = useState<Offer[]>([]);
   const [editingOfferId, setEditingOfferId] = useState<string | null>(null);
   const [categories, setCategories] = useState<string[]>([]);
+  const [promo_categories, setPromoCategories] = useState<string[]>([]);
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [cities, setCities] = useState<string[]>([]);
   const [showForm, setShowForm] = useState(false);
@@ -58,6 +59,9 @@ export default function Admin() {
     // Собираем уникальные категории из предложений
     const uniqueCategories = Array.from(new Set(offersData.map((offer) => offer.category)));
     setCategories(uniqueCategories);
+
+    const uniquePromoCategories = Array.from(new Set(offersData.map((offer) => offer.promo_category)));
+    setPromoCategories(uniquePromoCategories);
 
     // Собираем уникальные города из предложений, исключая пустые строки
     const uniqueCities = Array.from(new Set(offersData.map((offer) => offer.city).filter(city => city !== "")));
@@ -127,6 +131,7 @@ export default function Admin() {
                 key={editingOfferId || "new"}
                 offer={offers.find((offer) => offer.id === editingOfferId) || null}
                 categories={categories}
+                promo_categories={promo_categories}
                 cities={cities}
                 onSubmit={async () => {
                   showToast(editingOfferId ? "Предложение обновлено!" : "Предложение добавлено!", "success");

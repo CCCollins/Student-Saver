@@ -8,6 +8,8 @@ import Footer from "./components/Footer";
 import { ChevronUp, Menu, X } from "lucide-react";
 import {
   FaTag, FaUniversity, FaTheaterMasks, FaFilm, FaBus, FaShoppingCart, FaBook, FaBriefcase, FaEllipsisH,
+  FaShoppingBag, FaWrench, FaChalkboardTeacher, FaGem, FaDumbbell, FaPlane, FaCouch, FaTv, FaTools,
+  FaCar, FaTshirt, FaPaintBrush, FaGift, FaUtensils, FaCapsules, FaBaby, FaPaw, FaTree, FaPenNib
 } from "react-icons/fa";
 import Cookies from "js-cookie";
 
@@ -20,8 +22,35 @@ const CATEGORY_ICONS: Record<string, JSX.Element> = {
   "Транспорт": <FaBus />,
   "Продукты": <FaShoppingCart />,
   "Образование": <FaBook />,
-  "Карточки": <FaBriefcase />,
+  "Государство": <FaBriefcase />,
   "Другое": <FaEllipsisH />,
+};
+
+const PROMO_CATEGORY_ICONS: Record<string, JSX.Element> = {
+  "Маркетплейсы": <FaShoppingBag />,
+  "Услуги": <FaWrench />,
+  "IT-услуги": <FaChalkboardTeacher />,
+  "Обучение": <FaUniversity />,
+  "Развлечения": <FaTheaterMasks />,
+  "Банки": <FaUniversity />,
+  "Украшения": <FaGem />,
+  "Спорт": <FaDumbbell />,
+  "Путешествия": <FaPlane />,
+  "Мебель": <FaCouch />,
+  "Техника": <FaTv />,
+  "Сантехника": <FaTools />,
+  "Инструменты": <FaWrench />,
+  "Шиномонтаж": <FaCar />,
+  "Одежда": <FaTshirt />,
+  "Косметика": <FaPaintBrush />,
+  "Подарки": <FaGift />,
+  "Еда": <FaUtensils />,
+  "Аптеки": <FaCapsules />,
+  "Для детей": <FaBaby />,
+  "Животные": <FaPaw />,
+  "Для дачи": <FaTree />,
+  "Книги": <FaBook />,
+  "Канцелярия": <FaPenNib />,
 };
 
 export default function Home() {
@@ -36,6 +65,7 @@ export default function Home() {
     title: string;
     description: string;
     category: string;
+    promo_category: string;
     city?: string;
     promocode?: Promocode[];
     expires: string;
@@ -126,10 +156,8 @@ export default function Home() {
 
   // ✅ Группируем промокоды по первой букве или цифре
   const groupedPromos = promos.reduce((acc, offer) => {
-    const firstChar = offer.title.charAt(0).toUpperCase();
-    const category = /[0-9]/.test(firstChar) ? "0-9" : firstChar;
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(offer);
+    if (!acc[offer.promo_category]) acc[offer.promo_category] = [];
+    acc[offer.promo_category].push(offer);
     return acc;
   }, {} as Record<string, Offer[]>);
 
@@ -218,21 +246,23 @@ export default function Home() {
             ))}
           </ul>
         ) : (
-          // ✅ Сетка из 3 колонок только для промокодов
-          <div className="grid grid-cols-3 gap-2">
-            {sortedPromoCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  scrollToCategory(category);
-                  setIsMenuOpen(false);
-                }}
-                className="flex flex-col items-center p-2 text-gray-700 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white rounded-lg shadow-sm text-sm"
-              >
-                <span className="mt-1">{category}</span>
-              </button>
+          // Обычный список акций
+          <ul className="space-y-1 divide-y divide-gray-200">
+            {sortedPromoCategories.map((promo_category) => (
+              <li key={promo_category} className="pt-2 first:pt-0">
+                <button
+                  onClick={() => {
+                    scrollToCategory(promo_category);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center w-full p-3 text-gray-700 hover:bg-gradient-to-r from-blue-500 to-purple-500 hover:text-white rounded-lg shadow-sm"
+                >
+                  {PROMO_CATEGORY_ICONS[promo_category] || CATEGORY_ICONS["Другое"]}
+                  <span className="ml-3 font-medium">{promo_category}</span>
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
       </aside>
 
@@ -254,18 +284,20 @@ export default function Home() {
         {loading ? (
           <div className="text-center text-gray-500">Загрузка...</div>
         ) : selectedSection === "promos" ? (
-          sortedPromoCategories.map((category) => (
-            <div key={category} className="category-section mb-10" data-category={category}>
-              <h2 className="text-xl font-semibold text-gray-800 bg-gradient-to-r from-[#ff6f00ad] to-[#FFCC00] p-4 rounded-lg flex items-center gap-2 shadow-sm">
-                {CATEGORY_ICONS["Промокоды"]}
-                {category}
-              </h2>
+          sortedPromoCategories
+            .filter((promo_category) => groupedPromos[promo_category] && groupedPromos[promo_category].length > 0)
+            .map((promo_category) => (
+              <div key={promo_category} className="category-section mb-10" data-category={promo_category}>
+                <h2 className="text-xl font-semibold text-gray-800 bg-gradient-to-r from-[#ff6f00ad] to-[#FFCC00] p-4 rounded-lg flex items-center gap-2 shadow-sm">
+                  {PROMO_CATEGORY_ICONS[promo_category] || CATEGORY_ICONS["Другое"]}
+                  {promo_category}
+                </h2>
 
-              <div className="mt-4 p-5 bg-white rounded-lg shadow-md border border-gray-200">
-                <OfferList offers={groupedPromos[category]} favorites={favorites} setFavorites={setFavorites} />
+                <div className="mt-4 p-5 bg-white rounded-lg shadow-md border border-gray-200">
+                  <OfferList offers={groupedPromos[promo_category]} favorites={favorites} setFavorites={setFavorites} />
+                </div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
           sortedCategories
             .filter((category) => groupedSales[category] && groupedSales[category].length > 0)

@@ -7,17 +7,19 @@ import { supabase } from "@/utils/supabase";
 interface AdminFormProps {
   offer?: Offer | null;
   categories: string[];
+  promo_categories: string[];
   cities: string[];
   onSubmit: (offer: Offer) => Promise<void>;
   onClose: () => void;
   onUpdate: () => void;
 }
 
-export default function AdminForm({ offer, categories, cities, onClose, onUpdate }: AdminFormProps) {
+export default function AdminForm({ offer, categories, promo_categories, cities, onClose, onUpdate }: AdminFormProps) {
   const initialState = {
     title: "",
     description: "",
     category: "",
+    promo_category: "",
     promocode: [] as Promocode[],
     expires: "",
     city: "",
@@ -36,6 +38,7 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
         title: offer.title,
         description: offer.description,
         category: offer.category,
+        promo_category: offer.promo_category || "",
         promocode: offer.promocode || [],
         expires: offer.expires,
         city: offer.city || "",
@@ -59,6 +62,10 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
   
   const handleCategoryChange = (newValue: SingleValue<{ value: string; label: string }>) => {
     setFormData({ ...formData, category: newValue ? newValue.value : "" });
+  };
+
+  const handlePromoCategoryChange = (newValue: SingleValue<{ value: string; label: string }>) => {
+    setFormData({ ...formData, promo_category: newValue ? newValue.value : "" });
   };
 
   const handlePromocodeChange = (index: number, field: keyof Promocode, value: string) => {
@@ -111,7 +118,7 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { title, description, category, link } = formData;
+    const { title, description, category, promo_category, link } = formData;
 
     if (!title || !description || !category || !link) {
       setError("Все поля, кроме промокода, должны быть заполнены.");
@@ -136,6 +143,7 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
       title,
       description,
       category,
+      promo_category,
       link,
       city: formData.city,
       promocode: formData.promocode, // ✅ Теперь это массив объектов
@@ -165,6 +173,7 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
   };
 
   const categoryOptions = categories.map((cat) => ({ value: cat, label: cat }));
+  const promoCategoryOptions = promo_categories.map((cat) => ({ value: cat, label: cat }));
   const cityOptions = cities.map((city) => ({ value: city, label: city }));
 
   return (
@@ -234,6 +243,18 @@ export default function AdminForm({ offer, categories, cities, onClose, onUpdate
 
             {formData.category === "Промокоды" && (
               <div className="space-y-3">
+                <CreatableSelect
+                  name="promo_category"
+                  placeholder="Категория для промокодов"
+                  value={promoCategoryOptions.find((option) => option.value === formData.promo_category)}
+                  onChange={handlePromoCategoryChange}
+                  options={promoCategoryOptions}
+                  className="w-full border border-gray-400 rounded-lg text-gray-900"
+                  hideSelectedOptions={true}
+                  isClearable={true}
+                  menuPlacement="auto"
+                  maxMenuHeight={150}
+                />
                 {formData.promocode.map((promo, index) => (
                   <div key={index} className="space-y-2 border p-3 rounded-md bg-gray-100">
                     <input

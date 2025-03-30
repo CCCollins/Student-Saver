@@ -10,6 +10,7 @@ export interface Promocode {
     title: string;
     description: string;
     category: string;
+    promo_category: string;
     promocode?: Promocode[];
     expires: string;
     link: string;

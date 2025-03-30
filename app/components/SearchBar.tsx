@@ -45,7 +45,7 @@ export default function SearchBar({
           onClick={() => setSelectedSection("sales")}
         >
           <BiSolidDiscount className="mr-2" />
-          Акции
+          Льготы
         </button>
         <button
           className={`flex-1 py-2 rounded-lg flex items-center justify-center transition-all ${

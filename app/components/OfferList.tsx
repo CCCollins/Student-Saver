@@ -33,7 +33,7 @@ export default function OfferList({ offers, favorites, setFavorites }: OfferList
       if (window.innerWidth <= 768) {
         setOffersPerPage(3);
       } else {
-        setOffersPerPage(6);
+        setOffersPerPage(9);
       }
     };
 
